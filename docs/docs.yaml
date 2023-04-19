@@ -1,0 +1,3043 @@
+openapi: 3.0.0
+info:
+  title: MyGram API
+  description: MyGram API Documentation
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://mygram-api-sofyanegi.up.railway.app
+    variables: {}
+  - url: http://localhost:8080
+    variables: {}
+paths:
+  /users/register:
+    post:
+      tags:
+        - Users
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/RegisterRequest'
+                - example:
+                    username: exuser
+                    email: exuser@gmail.com
+                    password: supersecretpassword
+                    age: 22
+            example:
+              username: exuser
+              email: exuser@gmail.com
+              password: supersecretpassword
+              age: 22
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:52:55 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '272'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/RegisterSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully created user!
+                      data:
+                        id: xxx
+                        username: exuser
+                        email: exuser@gmail.com
+                        age: 22
+                        created_at: 2023-04-19T00:52:55.311Z
+                        updated_at: 2023-04-19T00:52:55.311Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully created user!
+                data:
+                  id: xxx
+                  username: exuser
+                  email: exuser@gmail.com
+                  age: 22
+                  created_at: 2023-04-19T00:52:55.311Z
+                  updated_at: 2023-04-19T00:52:55.311Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:53:26 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '203'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/RegisterFailed1'
+                  - example:
+                      code: 400
+                      status: Error
+                      message: Registration Failed!
+                      errors:
+                        - "ERROR: Invalid Password (Key: 'CreateUserRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag)!"
+              example:
+                code: 400
+                status: Error
+                message: Registration Failed!
+                errors:
+                  - "ERROR: Invalid Password (Key: 'CreateUserRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag)!"
+      deprecated: false
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /users/login:
+    post:
+      tags:
+        - Users
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/LoginRequest'
+                - example:
+                    username: exuser
+                    password: supersecretpassword
+            example:
+              username: exuser
+              password: supersecretpassword
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:54:50 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '312'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/LoginSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully log in!
+                      data:
+                        token_type: Bearer
+                        token: xxx
+              example:
+                code: 200
+                status: Ok
+                message: Successfully log in!
+                data:
+                  token_type: Bearer
+                  token: xxx
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:55:14 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '76'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/LoginFailed1'
+                  - example:
+                      code: 400
+                      status: Bad Request
+                      message: Invalid username or password
+              example:
+                code: 400
+                status: Bad Request
+                message: Invalid username or password
+      deprecated: false
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /users/list:
+    get:
+      tags:
+        - Users
+      summary: Get Users
+      operationId: GetUsers
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:57:02 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '275'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetUsersSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetch all user data!
+                      data:
+                        - id: xxx
+                          username: exuser
+                          email: exuser@gmail.com
+                          age: 22
+                          created_at: 2023-04-19T00:52:55.311Z
+                          updated_at: 2023-04-19T00:52:55.311Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetch all user data!
+                data:
+                  - id: xxx
+                    username: exuser
+                    email: exuser@gmail.com
+                    age: 22
+                    created_at: 2023-04-19T00:52:55.311Z
+                    updated_at: 2023-04-19T00:52:55.311Z
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /photos:
+    post:
+      tags:
+        - Photo
+      summary: Create Photo
+      operationId: CreatePhoto
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreatePhotoRequest'
+                - example:
+                    title: Photo Title 21
+                    caption: New Captionas
+                    photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+            example:
+              title: Photo Title 21
+              caption: New Captionas
+              photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:59:25 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '347'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreatePhotoSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully upload photo!
+                      data:
+                        ID: xxx
+                        title: Photo Title 1
+                        caption: New Caption
+                        photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                        UserID: xxx
+                        comments: null
+                        CreatedAt: 2023-04-19T00:59:25.212Z
+                        UpdatedAt: 2023-04-19T00:59:25.212Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully upload photo!
+                data:
+                  ID: xxx
+                  title: Photo Title 1
+                  caption: New Caption
+                  photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                  UserID: xxx
+                  comments: null
+                  CreatedAt: 2023-04-19T00:59:25.212Z
+                  UpdatedAt: 2023-04-19T00:59:25.212Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:02:59 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '195'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/FailedRequiredField1'
+                  - example:
+                      code: 400
+                      status: Error
+                      message: Upload Photo Failed!
+                      errors:
+                        - "ERROR: Invalid Title (Key: 'CreatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+              example:
+                code: 400
+                status: Error
+                message: Upload Photo Failed!
+                errors:
+                  - "ERROR: Invalid Title (Key: 'CreatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+        '401':
+          description: Unauthorized
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 00:58:35 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '64'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreatePhotoUnauthorized1'
+                  - example:
+                      message: 'invalidate token: Token is expired'
+                      status: fail
+              example:
+                message: 'invalidate token: Token is expired'
+                status: fail
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    get:
+      tags:
+        - Photo
+      summary: Get All
+      operationId: GetAll
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:00:10 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '352'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetAllSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetch all photos data!
+                      data:
+                        - ID: xxx
+                          title: Photo Title 1
+                          caption: New Caption
+                          photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                          UserID: xxx
+                          comments: []
+                          CreatedAt: 2023-04-19T00:59:25.212Z
+                          UpdatedAt: 2023-04-19T00:59:25.212Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetch all photos data!
+                data:
+                  - ID: xxx
+                    title: Photo Title 1
+                    caption: New Caption
+                    photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                    UserID: xxx
+                    comments: []
+                    CreatedAt: 2023-04-19T00:59:25.212Z
+                    UpdatedAt: 2023-04-19T00:59:25.212Z
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /photos/{id}:
+    get:
+      tags:
+        - Photo
+      summary: Get One
+      operationId: GetOne
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: xxx
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:01:35 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '345'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetOneSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetch photo data!
+                      data:
+                        ID: xxx
+                        title: Photo Title 1
+                        caption: New Caption
+                        photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                        UserID: xxx
+                        comments: []
+                        CreatedAt: 2023-04-19T00:59:25.212Z
+                        UpdatedAt: 2023-04-19T00:59:25.212Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetch photo data!
+                data:
+                  ID: xxx
+                  title: Photo Title 1
+                  caption: New Caption
+                  photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+                  UserID: xxx
+                  comments: []
+                  CreatedAt: 2023-04-19T00:59:25.212Z
+                  UpdatedAt: 2023-04-19T00:59:25.212Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:02:06 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '179'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetPhotoFailed1'
+                  - example:
+                      code: 400
+                      status: Bad Request
+                      message: photos not found
+                      errors:
+                        - 'ERROR: invalid input syntax for type uuid: "xxx" (SQLSTATE 22P02)'
+              example:
+                code: 400
+                status: Bad Request
+                message: photos not found
+                errors:
+                  - 'ERROR: invalid input syntax for type uuid: "xxx" (SQLSTATE 22P02)'
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    put:
+      tags:
+        - Photo
+      summary: Update Photo
+      operationId: UpdatePhoto
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: xxx
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdatePhotoRequest'
+                - example:
+                    caption: no caption
+                    photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+            example:
+              caption: no caption
+              photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:04:34 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '369'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/UpdatePhotoSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully updated photo!
+                      data:
+                        ID: xxx
+                        title: New Caption updated v2
+                        caption: no caption
+                        photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+                        UserID: xxx
+                        comments: []
+                        CreatedAt: 2023-04-19T00:59:25.212Z
+                        UpdatedAt: 2023-04-19T01:04:34.492Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully updated photo!
+                data:
+                  ID: xxx
+                  title: New Caption updated v2
+                  caption: no caption
+                  photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+                  UserID: xxx
+                  comments: []
+                  CreatedAt: 2023-04-19T00:59:25.212Z
+                  UpdatedAt: 2023-04-19T01:04:34.492Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:05:08 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '195'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/UpdatePhotoRequiredField1'
+                  - example:
+                      code: 400
+                      status: Error
+                      message: Update Photo Failed!
+                      errors:
+                        - "ERROR: Invalid Title (Key: 'UpdatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+              example:
+                code: 400
+                status: Error
+                message: Update Photo Failed!
+                errors:
+                  - "ERROR: Invalid Title (Key: 'UpdatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    delete:
+      tags:
+        - Photo
+      summary: Delete Photo
+      operationId: DeletePhoto
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: xxx
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:07:09 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '66'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DeleteSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully deleted photo!
+              example:
+                code: 200
+                status: Ok
+                message: Successfully deleted photo!
+        '403':
+          description: Forbidden
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 14 Apr 2023 23:42:02 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '89'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DeleteFailedAccessDenied1'
+                  - example:
+                      message: 'Access Denied: You are not authorized to modify this data !'
+                      status: fail
+              example:
+                message: 'Access Denied: You are not authorized to modify this data !'
+                status: fail
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /comments:
+    post:
+      tags:
+        - Comment
+      summary: Create Comment
+      operationId: CreateComment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateCommentRequest'
+                - example:
+                    photo_id: xxxx
+            example:
+              photo_id: xxxx
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:08:30 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '331'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateCommentSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully created comment!
+                      data:
+                        ID: xxx
+                        UserID: xxx
+                        PhotoID: xxxx
+                        message: Keren Photonya
+                        CreatedAt: 2023-04-19T01:08:30.733Z
+                        UpdatedAt: 2023-04-19T01:08:30.733Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully created comment!
+                data:
+                  ID: xxx
+                  UserID: xxx
+                  PhotoID: xxxx
+                  message: Keren Photonya
+                  CreatedAt: 2023-04-19T01:08:30.733Z
+                  UpdatedAt: 2023-04-19T01:08:30.733Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:08:50 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '328'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateCommentFailedRequireField1'
+                  - example:
+                      code: 400
+                      status: Error
+                      message: Comment Failed!
+                      errors:
+                        - "ERROR: Invalid PhotoId (Key: 'CreateCommentRequest.PhotoId' Error:Field validation for 'PhotoId' failed on the 'required' tag)!"
+                        - "ERROR: Invalid Message (Key: 'CreateCommentRequest.Message' Error:Field validation for 'Message' failed on the 'required' tag)!"
+              example:
+                code: 400
+                status: Error
+                message: Comment Failed!
+                errors:
+                  - "ERROR: Invalid PhotoId (Key: 'CreateCommentRequest.PhotoId' Error:Field validation for 'PhotoId' failed on the 'required' tag)!"
+                  - "ERROR: Invalid Message (Key: 'CreateCommentRequest.Message' Error:Field validation for 'Message' failed on the 'required' tag)!"
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    get:
+      tags:
+        - Comment
+      summary: Get All
+      operationId: GetAll1
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:09:43 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '328'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetAllSuccess1'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetched comments!
+                      data:
+                        - ID: xxx
+                          UserID: xxx
+                          PhotoID: xxxx
+                          message: Keren Photonya
+                          CreatedAt: 2023-04-19T01:08:30.733Z
+                          UpdatedAt: 2023-04-19T01:08:30.733Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetched comments!
+                data:
+                  - ID: xxx
+                    UserID: xxx
+                    PhotoID: xxxx
+                    message: Keren Photonya
+                    CreatedAt: 2023-04-19T01:08:30.733Z
+                    UpdatedAt: 2023-04-19T01:08:30.733Z
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /comments/{id}:
+    get:
+      tags:
+        - Comment
+      summary: Get One
+      operationId: GetOne1
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 8b7a676d-02c8-4317-81a3-d0354673404a
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:10:43 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '325'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetOneSuccess1'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetched comment!
+                      data:
+                        ID: xxx
+                        UserID: xxx
+                        PhotoID: xxxx
+                        message: Keren Photonya
+                        CreatedAt: 2023-04-19T01:08:30.733Z
+                        UpdatedAt: 2023-04-19T01:08:30.733Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetched comment!
+                data:
+                  ID: xxx
+                  UserID: xxx
+                  PhotoID: xxxx
+                  message: Keren Photonya
+                  CreatedAt: 2023-04-19T01:08:30.733Z
+                  UpdatedAt: 2023-04-19T01:08:30.733Z
+        '404':
+          description: Not Found
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:11:12 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '95'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/NotFound1'
+                  - example:
+                      code: 404
+                      status: Not Found
+                      message: Comment not found!
+                      errors:
+                        - comment not found
+              example:
+                code: 404
+                status: Not Found
+                message: Comment not found!
+                errors:
+                  - comment not found
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    put:
+      tags:
+        - Comment
+      summary: Update Comment
+      operationId: UpdateComment
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: xxx
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateCommentRequest'
+                - example:
+                    message: Keren Kak
+            example:
+              message: Keren Kak
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:12:41 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '340'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/UpdateCommentSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully updated comment!
+                      data:
+                        ID: xxx
+                        UserID: xxx
+                        PhotoID: xxxx
+                        message: Keren Kak
+                        CreatedAt: 2023-04-19T01:08:30.733Z
+                        UpdatedAt: 2023-04-19T01:12:41.597Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully updated comment!
+                data:
+                  ID: xxx
+                  UserID: xxx
+                  PhotoID: xxxx
+                  message: Keren Kak
+                  CreatedAt: 2023-04-19T01:08:30.733Z
+                  UpdatedAt: 2023-04-19T01:12:41.597Z
+        '403':
+          description: Forbidden
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 14 Apr 2023 23:51:05 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '89'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/AccessDenied1'
+                  - example:
+                      message: 'Access Denied: You are not authorized to modify this data !'
+                      status: fail
+              example:
+                message: 'Access Denied: You are not authorized to modify this data !'
+                status: fail
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    delete:
+      tags:
+        - Comment
+      summary: Delete Comment
+      operationId: DeleteComment
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: xxx
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:13:22 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '68'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DeleteSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully deleted comment!
+              example:
+                code: 200
+                status: Ok
+                message: Successfully deleted comment!
+        '403':
+          description: Forbidden
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 14 Apr 2023 23:51:30 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '89'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/AccessDenied1'
+                  - example:
+                      message: 'Access Denied: You are not authorized to modify this data !'
+                      status: fail
+              example:
+                message: 'Access Denied: You are not authorized to modify this data !'
+                status: fail
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /social:
+    post:
+      tags:
+        - Media
+      summary: Create Media
+      operationId: CreateMedia
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateMediaRequest'
+                - example:
+                    name: Instagram
+            example:
+              name: Instagram
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:21:55 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '315'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateMediaSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully created media!
+                      data:
+                        ID: xxx
+                        name: Instagram
+                        social_media_url: Instagram.com
+                        UserID: xxx
+                        CreatedAt: 2023-04-19T01:21:55.858Z
+                        UpdatedAt: 2023-04-19T01:21:55.858Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully created media!
+                data:
+                  ID: xxx
+                  name: Instagram
+                  social_media_url: Instagram.com
+                  UserID: xxx
+                  CreatedAt: 2023-04-19T01:21:55.858Z
+                  UpdatedAt: 2023-04-19T01:21:55.858Z
+        '400':
+          description: Bad Request
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:24:14 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '228'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateMediaFailed1'
+                  - example:
+                      code: 400
+                      status: Error
+                      message: Create Media Failed!
+                      errors:
+                        - "ERROR: Invalid Social_media_url (Key: 'CreateMediaRequest.Social_media_url' Error:Field validation for 'Social_media_url' failed on the 'required' tag)!"
+              example:
+                code: 400
+                status: Error
+                message: Create Media Failed!
+                errors:
+                  - "ERROR: Invalid Social_media_url (Key: 'CreateMediaRequest.Social_media_url' Error:Field validation for 'Social_media_url' failed on the 'required' tag)!"
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+    get:
+      tags:
+        - Media
+      summary: Get All
+      operationId: GetAll2
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:24:52 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '778'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetAllSuccess2'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetch all media data!
+                      data:
+                        - ID: xxxx
+                          name: Instagram
+                          social_media_url: Instagram.com
+                          UserID: xxx
+                          CreatedAt: 2023-04-19T01:24:45.994Z
+                          UpdatedAt: 2023-04-19T01:24:45.994Z
+                        - ID: ed123944-75f7-4097-8e98-6cee08604c43
+                          name: Instagram
+                          social_media_url: Instagram.com
+                          UserID: xxx
+                          CreatedAt: 2023-04-19T01:24:47.261Z
+                          UpdatedAt: 2023-04-19T01:24:47.261Z
+                        - ID: xxxx
+                          name: Instagram
+                          social_media_url: Instagram.com
+                          UserID: xxx
+                          CreatedAt: 2023-04-19T01:24:49.066Z
+                          UpdatedAt: 2023-04-19T01:24:49.066Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetch all media data!
+                data:
+                  - ID: xxxx
+                    name: Instagram
+                    social_media_url: Instagram.com
+                    UserID: xxx
+                    CreatedAt: 2023-04-19T01:24:45.994Z
+                    UpdatedAt: 2023-04-19T01:24:45.994Z
+                  - ID: ed123944-75f7-4097-8e98-6cee08604c43
+                    name: Instagram
+                    social_media_url: Instagram.com
+                    UserID: xxx
+                    CreatedAt: 2023-04-19T01:24:47.261Z
+                    UpdatedAt: 2023-04-19T01:24:47.261Z
+                  - ID: xxxx
+                    name: Instagram
+                    social_media_url: Instagram.com
+                    UserID: xxx
+                    CreatedAt: 2023-04-19T01:24:49.066Z
+                    UpdatedAt: 2023-04-19T01:24:49.066Z
+        '401':
+          description: Unauthorized
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:14:41 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '51'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetAllFailed1'
+                  - example:
+                      message: You are not logged in
+                      status: fail
+              example:
+                message: You are not logged in
+                status: fail
+      deprecated: false
+      servers:
+        - url: https://mygram-api-sofyanegi.up.railway.app
+          variables: {}
+  /socialmedia/{id}:
+    get:
+      tags:
+        - Media
+      summary: Get One
+      operationId: GetOne2
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: XXXX
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:25:59 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '308'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetOneSuccess2'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully fetch media data!
+                      data:
+                        ID: xxxx
+                        name: Instagram
+                        social_media_url: Instagram.com
+                        UserID: xxx
+                        CreatedAt: 2023-04-19T01:24:45.994Z
+                        UpdatedAt: 2023-04-19T01:24:45.994Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully fetch media data!
+                data:
+                  ID: xxxx
+                  name: Instagram
+                  social_media_url: Instagram.com
+                  UserID: xxx
+                  CreatedAt: 2023-04-19T01:24:45.994Z
+                  UpdatedAt: 2023-04-19T01:24:45.994Z
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 14 Apr 2023 22:54:14 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '93'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/GetOneFailed1'
+                  - example:
+                      code: 400
+                      status: Bad Request
+                      message: media not found
+                      errors:
+                        - record not found
+              example:
+                code: 400
+                status: Bad Request
+                message: media not found
+                errors:
+                  - record not found
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: http://localhost:8888/api/v1/media
+          variables: {}
+    delete:
+      tags:
+        - Media
+      summary: Delete Media
+      operationId: DeleteMedia
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: XXXX
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:28:00 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '66'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DeleteMediaSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully deleted media!
+              example:
+                code: 200
+                status: Ok
+                message: Successfully deleted media!
+        '403':
+          description: Forbidden
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 14 Apr 2023 23:52:40 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '89'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/AccessDenied1'
+                  - example:
+                      message: 'Access Denied: You are not authorized to modify this data !'
+                      status: fail
+              example:
+                message: 'Access Denied: You are not authorized to modify this data !'
+                status: fail
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: http://localhost:8888/api/v1/media
+          variables: {}
+    put:
+      tags:
+        - Media
+      summary: Update Media
+      operationId: UpdateMedia
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: XXXX
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateMediaRequest'
+                - example:
+                    name: Instagram updated
+                    social_media_url: Instagram.com
+            example:
+              name: Instagram updated
+              social_media_url: Instagram.com
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: application/json; charset=utf-8
+            date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 15 Apr 2023 01:26:57 GMT
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '316'
+            server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: railway
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/UpdateSuccess'
+                  - example:
+                      code: 200
+                      status: Ok
+                      message: Successfully updated media!
+                      data:
+                        ID: xxxx
+                        name: Instagram updated
+                        social_media_url: Instagram.com
+                        UserID: xxx
+                        CreatedAt: 2023-04-19T01:24:45.994Z
+                        UpdatedAt: 2023-04-19T01:26:57.052Z
+              example:
+                code: 200
+                status: Ok
+                message: Successfully updated media!
+                data:
+                  ID: xxxx
+                  name: Instagram updated
+                  social_media_url: Instagram.com
+                  UserID: xxx
+                  CreatedAt: 2023-04-19T01:24:45.994Z
+                  UpdatedAt: 2023-04-19T01:26:57.052Z
+      deprecated: false
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - username
+        - email
+        - password
+        - age
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        age:
+          type: integer
+          format: int32
+      example:
+        username: exuser
+        email: exuser@gmail.com
+        password: supersecretpassword
+        age: 22
+    RegisterSuccess:
+      title: RegisterSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully created user!
+        data:
+          id: xxx
+          username: exuser
+          email: exuser@gmail.com
+          age: 22
+          created_at: 2023-04-19T00:52:55.311Z
+          updated_at: 2023-04-19T00:52:55.311Z
+    Data:
+      title: Data
+      required:
+        - id
+        - username
+        - email
+        - age
+        - created_at
+        - updated_at
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        age:
+          type: integer
+          format: int32
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      example:
+        id: xxx
+        username: exuser
+        email: exuser@gmail.com
+        age: 22
+        created_at: 2023-04-19T00:52:55.311Z
+        updated_at: 2023-04-19T00:52:55.311Z
+    RegisterFailed1:
+      title: RegisterFailed1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Error
+        message: Registration Failed!
+        errors:
+          - "ERROR: Invalid Password (Key: 'CreateUserRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag)!"
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - username
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: exuser
+        password: supersecretpassword
+    LoginSuccess:
+      title: LoginSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data1'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully log in!
+        data:
+          token_type: Bearer
+          token: xxx
+    Data1:
+      title: Data1
+      required:
+        - token_type
+        - token
+      type: object
+      properties:
+        token_type:
+          type: string
+        token:
+          type: string
+      example:
+        token_type: Bearer
+        token: xxx
+    LoginFailed1:
+      title: LoginFailed1
+      required:
+        - code
+        - status
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        code: 400
+        status: Bad Request
+        message: Invalid username or password
+    GetUsersSuccess:
+      title: GetUsersSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data'
+          description: ''
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetch all user data!
+        data:
+          - id: xxx
+            username: exuser
+            email: exuser@gmail.com
+            age: 22
+            created_at: 2023-04-19T00:52:55.311Z
+            updated_at: 2023-04-19T00:52:55.311Z
+    CreatePhotoRequest:
+      title: CreatePhotoRequest
+      required:
+        - title
+        - caption
+        - photo_url
+      type: object
+      properties:
+        title:
+          type: string
+        caption:
+          type: string
+        photo_url:
+          type: string
+      example:
+        title: Photo Title 21
+        caption: New Captionas
+        photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+    CreatePhotoUnauthorized1:
+      title: CreatePhotoUnauthorized1
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        message: 'invalidate token: Token is expired'
+        status: fail
+    CreatePhotoSuccess:
+      title: CreatePhotoSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data3'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully upload photo!
+        data:
+          ID: xxx
+          title: Photo Title 1
+          caption: New Caption
+          photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+          UserID: xxx
+          comments: null
+          CreatedAt: 2023-04-19T00:59:25.212Z
+          UpdatedAt: 2023-04-19T00:59:25.212Z
+    Data3:
+      title: Data3
+      required:
+        - ID
+        - title
+        - caption
+        - photo_url
+        - UserID
+        - comments
+        - CreatedAt
+        - UpdatedAt
+      type: object
+      properties:
+        ID:
+          type: string
+        title:
+          type: string
+        caption:
+          type: string
+        photo_url:
+          type: string
+        UserID:
+          type: string
+        comments:
+          type: string
+          nullable: true
+        CreatedAt:
+          type: string
+        UpdatedAt:
+          type: string
+      example:
+        ID: xxx
+        title: Photo Title 1
+        caption: New Caption
+        photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+        UserID: xxx
+        comments: null
+        CreatedAt: 2023-04-19T00:59:25.212Z
+        UpdatedAt: 2023-04-19T00:59:25.212Z
+    FailedRequiredField1:
+      title: FailedRequiredField1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Error
+        message: Upload Photo Failed!
+        errors:
+          - "ERROR: Invalid Title (Key: 'CreatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+    GetAllSuccess:
+      title: GetAllSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data4'
+          description: ''
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetch all photos data!
+        data:
+          - ID: xxx
+            title: Photo Title 1
+            caption: New Caption
+            photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+            UserID: xxx
+            comments: []
+            CreatedAt: 2023-04-19T00:59:25.212Z
+            UpdatedAt: 2023-04-19T00:59:25.212Z
+    Data4:
+      title: Data4
+      required:
+        - ID
+        - title
+        - caption
+        - photo_url
+        - UserID
+        - comments
+        - CreatedAt
+        - UpdatedAt
+      type: object
+      properties:
+        ID:
+          type: string
+        title:
+          type: string
+        caption:
+          type: string
+        photo_url:
+          type: string
+        UserID:
+          type: string
+        comments:
+          type: array
+          items:
+            type: string
+          description: ''
+        CreatedAt:
+          type: string
+        UpdatedAt:
+          type: string
+      example:
+        ID: xxx
+        title: Photo Title 1
+        caption: New Caption
+        photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+        UserID: xxx
+        comments: []
+        CreatedAt: 2023-04-19T00:59:25.212Z
+        UpdatedAt: 2023-04-19T00:59:25.212Z
+    GetOneSuccess:
+      title: GetOneSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data4'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetch photo data!
+        data:
+          ID: xxx
+          title: Photo Title 1
+          caption: New Caption
+          photo_url: https://raw.githubusercontent.com/swaggo/swag/master/assets/swagger-image.png
+          UserID: xxx
+          comments: []
+          CreatedAt: 2023-04-19T00:59:25.212Z
+          UpdatedAt: 2023-04-19T00:59:25.212Z
+    GetPhotoFailed1:
+      title: GetPhotoFailed1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Bad Request
+        message: photos not found
+        errors:
+          - 'ERROR: invalid input syntax for type uuid: "xxx" (SQLSTATE 22P02)'
+    UpdatePhotoRequest:
+      title: UpdatePhotoRequest
+      required:
+        - caption
+        - photo_url
+      type: object
+      properties:
+        caption:
+          type: string
+        photo_url:
+          type: string
+      example:
+        caption: no caption
+        photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+    UpdatePhotoSuccess:
+      title: UpdatePhotoSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data4'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully updated photo!
+        data:
+          ID: xxx
+          title: New Caption updated v2
+          caption: no caption
+          photo_url: https://dev4devs.files.wordpress.com/2019/02/screenshot-2019-02-08-at-20.35.45.png?crop
+          UserID: xxx
+          comments: []
+          CreatedAt: 2023-04-19T00:59:25.212Z
+          UpdatedAt: 2023-04-19T01:04:34.492Z
+    UpdatePhotoRequiredField1:
+      title: UpdatePhotoRequiredField1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Error
+        message: Update Photo Failed!
+        errors:
+          - "ERROR: Invalid Title (Key: 'UpdatePhotoRequest.Title' Error:Field validation for 'Title' failed on the 'required' tag)!"
+    DeleteFailedAccessDenied1:
+      title: DeleteFailedAccessDenied1
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        message: 'Access Denied: You are not authorized to modify this data !'
+        status: fail
+    DeleteSuccess:
+      title: DeleteSuccess
+      required:
+        - code
+        - status
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        code: 200
+        status: Ok
+        message: Successfully deleted photo!
+    CreateCommentRequest:
+      title: CreateCommentRequest
+      required:
+        - photo_id
+      type: object
+      properties:
+        photo_id:
+          type: string
+      example:
+        photo_id: xxxx
+    CreateCommentSuccess:
+      title: CreateCommentSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data7'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully created comment!
+        data:
+          ID: xxx
+          UserID: xxx
+          PhotoID: xxxx
+          message: Keren Photonya
+          CreatedAt: 2023-04-19T01:08:30.733Z
+          UpdatedAt: 2023-04-19T01:08:30.733Z
+    Data7:
+      title: Data7
+      required:
+        - ID
+        - UserID
+        - PhotoID
+        - message
+        - CreatedAt
+        - UpdatedAt
+      type: object
+      properties:
+        ID:
+          type: string
+        UserID:
+          type: string
+        PhotoID:
+          type: string
+        message:
+          type: string
+        CreatedAt:
+          type: string
+        UpdatedAt:
+          type: string
+      example:
+        ID: xxx
+        UserID: xxx
+        PhotoID: xxxx
+        message: Keren Photonya
+        CreatedAt: 2023-04-19T01:08:30.733Z
+        UpdatedAt: 2023-04-19T01:08:30.733Z
+    CreateCommentFailedRequireField1:
+      title: CreateCommentFailedRequireField1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Error
+        message: Comment Failed!
+        errors:
+          - "ERROR: Invalid PhotoId (Key: 'CreateCommentRequest.PhotoId' Error:Field validation for 'PhotoId' failed on the 'required' tag)!"
+          - "ERROR: Invalid Message (Key: 'CreateCommentRequest.Message' Error:Field validation for 'Message' failed on the 'required' tag)!"
+    GetAllSuccess1:
+      title: GetAllSuccess1
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data7'
+          description: ''
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetched comments!
+        data:
+          - ID: xxx
+            UserID: xxx
+            PhotoID: xxxx
+            message: Keren Photonya
+            CreatedAt: 2023-04-19T01:08:30.733Z
+            UpdatedAt: 2023-04-19T01:08:30.733Z
+    GetOneSuccess1:
+      title: GetOneSuccess1
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data7'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetched comment!
+        data:
+          ID: xxx
+          UserID: xxx
+          PhotoID: xxxx
+          message: Keren Photonya
+          CreatedAt: 2023-04-19T01:08:30.733Z
+          UpdatedAt: 2023-04-19T01:08:30.733Z
+    NotFound1:
+      title: NotFound1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 404
+        status: Not Found
+        message: Comment not found!
+        errors:
+          - comment not found
+    UpdateCommentRequest:
+      title: UpdateCommentRequest
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Keren Kak
+    AccessDenied1:
+      title: AccessDenied1
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        message: 'Access Denied: You are not authorized to modify this data !'
+        status: fail
+    UpdateCommentSuccess:
+      title: UpdateCommentSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data7'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully updated comment!
+        data:
+          ID: xxx
+          UserID: xxx
+          PhotoID: xxxx
+          message: Keren Kak
+          CreatedAt: 2023-04-19T01:08:30.733Z
+          UpdatedAt: 2023-04-19T01:12:41.597Z
+    CreateMediaRequest:
+      title: CreateMediaRequest
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: Instagram
+    CreateMediaSuccess:
+      title: CreateMediaSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data11'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully created media!
+        data:
+          ID: xxx
+          name: Instagram
+          social_media_url: Instagram.com
+          UserID: xxx
+          CreatedAt: 2023-04-19T01:21:55.858Z
+          UpdatedAt: 2023-04-19T01:21:55.858Z
+    Data11:
+      title: Data11
+      required:
+        - ID
+        - name
+        - social_media_url
+        - UserID
+        - CreatedAt
+        - UpdatedAt
+      type: object
+      properties:
+        ID:
+          type: string
+        name:
+          type: string
+        social_media_url:
+          type: string
+        UserID:
+          type: string
+        CreatedAt:
+          type: string
+        UpdatedAt:
+          type: string
+      example:
+        ID: xxx
+        name: Instagram
+        social_media_url: Instagram.com
+        UserID: xxx
+        CreatedAt: 2023-04-19T01:21:55.858Z
+        UpdatedAt: 2023-04-19T01:21:55.858Z
+    CreateMediaFailed1:
+      title: CreateMediaFailed1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Error
+        message: Create Media Failed!
+        errors:
+          - "ERROR: Invalid Social_media_url (Key: 'CreateMediaRequest.Social_media_url' Error:Field validation for 'Social_media_url' failed on the 'required' tag)!"
+    GetAllFailed1:
+      title: GetAllFailed1
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        message: You are not logged in
+        status: fail
+    GetAllSuccess2:
+      title: GetAllSuccess2
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data11'
+          description: ''
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetch all media data!
+        data:
+          - ID: xxxx
+            name: Instagram
+            social_media_url: Instagram.com
+            UserID: xxx
+            CreatedAt: 2023-04-19T01:24:45.994Z
+            UpdatedAt: 2023-04-19T01:24:45.994Z
+          - ID: ed123944-75f7-4097-8e98-6cee08604c43
+            name: Instagram
+            social_media_url: Instagram.com
+            UserID: xxx
+            CreatedAt: 2023-04-19T01:24:47.261Z
+            UpdatedAt: 2023-04-19T01:24:47.261Z
+          - ID: xxxx
+            name: Instagram
+            social_media_url: Instagram.com
+            UserID: xxx
+            CreatedAt: 2023-04-19T01:24:49.066Z
+            UpdatedAt: 2023-04-19T01:24:49.066Z
+    GetOneFailed1:
+      title: GetOneFailed1
+      required:
+        - code
+        - status
+        - message
+        - errors
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        code: 400
+        status: Bad Request
+        message: media not found
+        errors:
+          - record not found
+    GetOneSuccess2:
+      title: GetOneSuccess2
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data11'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully fetch media data!
+        data:
+          ID: xxxx
+          name: Instagram
+          social_media_url: Instagram.com
+          UserID: xxx
+          CreatedAt: 2023-04-19T01:24:45.994Z
+          UpdatedAt: 2023-04-19T01:24:45.994Z
+    UpdateMediaRequest:
+      title: UpdateMediaRequest
+      required:
+        - name
+        - social_media_url
+      type: object
+      properties:
+        name:
+          type: string
+        social_media_url:
+          type: string
+      example:
+        name: Instagram updated
+        social_media_url: Instagram.com
+    UpdateSuccess:
+      title: UpdateSuccess
+      required:
+        - code
+        - status
+        - message
+        - data
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Data11'
+      example:
+        code: 200
+        status: Ok
+        message: Successfully updated media!
+        data:
+          ID: xxxx
+          name: Instagram updated
+          social_media_url: Instagram.com
+          UserID: xxx
+          CreatedAt: 2023-04-19T01:24:45.994Z
+          UpdatedAt: 2023-04-19T01:26:57.052Z
+    DeleteMediaSuccess:
+      title: DeleteMediaSuccess
+      required:
+        - code
+        - status
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        code: 200
+        status: Ok
+        message: Successfully deleted media!
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Users
+  - name: Photo
+  - name: Comment
+  - name: Media

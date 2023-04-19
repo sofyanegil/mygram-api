@@ -6,6 +6,8 @@ import (
 	"mygram-api/repository"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewRouter(
@@ -24,6 +26,11 @@ func NewRouter(
 	authenticationController *controllers.AuthenticationController,
 ) *gin.Engine {
 	router := gin.Default()
+
+	router.StaticFile("/docs.yaml", "./docs/docs.yaml")
+
+	url := ginSwagger.URL("https://mygram-api-sofyanegi.up.railway.app/docs.yaml")
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url, ginSwagger.DefaultModelsExpandDepth(-1)))
 	userRouter := router.Group("/users")
 	{
 		userRouter.POST("/register", authenticationController.Register)
